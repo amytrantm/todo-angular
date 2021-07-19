@@ -5,15 +5,20 @@ import { TASKS } from '../mock-tasks';
 import { Task } from '../Task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
+  private apiUrl = 'http://localhost:5000/tasks';
 
-  private apiUrl = 'http://localhost:5000/tasks'
-
-  constructor(private http: HttpClient) { }
-  getTasks() : Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl)
+  constructor(private http: HttpClient) {}
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.apiUrl);
     //data from api
+  }
+
+  deleteTask(task: Task): Observable<Task> {
+    // http://localhost:5000/tasks/1
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.delete<Task>(url);
   }
 }
