@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable} from 'rxjs'; 
-import { TASKS } from '../mock-tasks';
+//import { TASKS } from '../mock-tasks'; //if not using api
 import { Task } from '../Task';
+
+
+//update task
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -21,4 +29,11 @@ export class TaskService {
     const url = `${this.apiUrl}/${task.id}`;
     return this.http.delete<Task>(url);
   }
+
+  //update task after toggle reminder
+  updateTaskReminder(task: Task): Observable<Task> {
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.put<Task>(url, task, httpOptions);
+  }
+
 }

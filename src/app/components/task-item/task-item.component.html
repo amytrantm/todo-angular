@@ -1,5 +1,7 @@
 <div
   class="task"
+  [ngClass]="{ setReminder : task.reminder }"
+  (dblclick)="onToggle(task)"
 >
   <h3> {{ task.text }} 
     
@@ -13,3 +15,6 @@
 </div>
 
 <!-- [ngStyle]="{'color':'red'}": set red color for x icon -->
+
+<!-- [ngClass]="{ setReminder : task.reminder }" -->
+<!-- [ngClass]="{ className : obj.<property-is-true>}" -->
